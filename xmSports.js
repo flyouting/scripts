@@ -58,12 +58,13 @@ function getToken() {
 async function start() {
   login_token = $.isNode() ? (process.env.XM_SPORT_TOKEN ? process.env.XM_SPORT_TOKEN : login_token) : ($.getdata('xmSportsToken') ? $.getdata('xmSportsToken') : login_token);
   //console.log(`login_token:::${login_token}`)
-  if (login_token.indexOf('&') > -1){
-    cookiesArr=login_token.split('&');
-  }else{
-    cookiesArr=[login_token];
-  }
-  for (let i = 0; i < cookiesArr.length; i++) {
+  if(login_token){
+    if (login_token.indexOf('&') > -1){
+      cookiesArr=login_token.split('&');
+    }else{
+      cookiesArr=[login_token];
+    }
+    for (let i = 0; i < cookiesArr.length; i++) {
     if(cookiesArr[i]){
       login_token=cookiesArr[i];
       await get_app_token(login_token);
@@ -77,12 +78,15 @@ async function start() {
           if ($.isNode()) await notify.sendNotify($.name, `${step}步🏃修改成功`, `时间：${timeFormat(localtime())}‍`, { "open-url": "alipays://platformapi/startapp?appId=20000869" })
         } else {
         console.log(`修改运动步数失败`)
+        }
+      } else {
+        $.msg($.name, '失败', `Token已失效，请重新获取`)
       }
-    } else {
-      $.msg($.name, '失败', `Token已失效，请重新获取`)
     }
+  }else{
+     $.log('暂无Token')
+    $.log(`\n\n获取TOKEN方法：\nAPP Store下载小米运动APP\n登入小米运动(登录方式必须是手机号码+密码(没有就用手机号码注册),下面的第三方账号(小米账号,Apple,微信)授权登录不行)\n登录成功后在 我的->第三方接入->绑定支付宝,微信\n小米运动只要不退出登录，就会自动获取新的token,即永久有效`)
   }
-  
   $.done()
 }
 
