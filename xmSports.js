@@ -55,10 +55,10 @@ function getToken() {
 
 async function start() {
   login_token = $.isNode() ? (process.env.XM_SPORT_TOKEN ? process.env.XM_SPORT_TOKEN : login_token) : ($.getdata('xmSportsToken') ? $.getdata('xmSportsToken') : login_token);
-  // console.log(`login_token:::${login_token}`)
+  console.log(`login_token:::${login_token}`)
   if (login_token) {
     await get_app_token(login_token);
-    // console.log(`$.tokenInfo${JSON.stringify($.tokenInfo)}`)
+    console.log(`$.tokenInfo${JSON.stringify($.tokenInfo)}`)
     if ($.tokenInfo && $.tokenInfo.result === 'ok') {
       const {app_token, user_id} = $.tokenInfo.token_info;
       await get_time();
