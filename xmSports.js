@@ -71,7 +71,7 @@ async function start() {
         console.log(`$.tokenInfo${JSON.stringify($.tokenInfo)}`)
         if ($.tokenInfo && $.tokenInfo.result === 'ok') {
           const { app_token, user_id } = $.tokenInfo.token_info;
-          step = randomFriendPin($.getdata('xmMinStep') * 1 || 19000, $.getdata('xmMaxStep') * 1 || 21000);
+         // step = randomFriendPin($.getdata('xmMinStep') * 1 || 19000, $.getdata('xmMaxStep') * 1 || 21000);
           await get_time();
           await change_step(app_token, user_id);
           if ($.changeStepRes && $.changeStepRes.code === 1) {
