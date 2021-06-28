@@ -39,7 +39,7 @@ const headers = {
 let login_token = '';
 let cookiesArr = [];
 //需要修改的运动步数波动范围，脚本默认修改步数范围为1w9到2w1
-const step = randomFriendPin($.getdata('xmMinStep') * 1 || 19000, $.getdata('xmMaxStep') * 1 || 21000);
+var step = randomFriendPin($.getdata('xmMinStep') * 1 || 19000, $.getdata('xmMaxStep') * 1 || 21000);
 function getToken() {
   if ($response.body) {
     const body = JSON.parse($response.body);
@@ -71,6 +71,7 @@ async function start() {
         console.log(`$.tokenInfo${JSON.stringify($.tokenInfo)}`)
         if ($.tokenInfo && $.tokenInfo.result === 'ok') {
           const { app_token, user_id } = $.tokenInfo.token_info;
+          step = randomFriendPin($.getdata('xmMinStep') * 1 || 19000, $.getdata('xmMaxStep') * 1 || 21000);
           await get_time();
           await change_step(app_token, user_id);
           if ($.changeStepRes && $.changeStepRes.code === 1) {
