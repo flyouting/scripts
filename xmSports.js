@@ -71,7 +71,6 @@ async function start() {
         console.log(`$.tokenInfo${JSON.stringify($.tokenInfo)}`)
         if ($.tokenInfo && $.tokenInfo.result === 'ok') {
           const { app_token, user_id } = $.tokenInfo.token_info;
-         // step = randomFriendPin($.getdata('xmMinStep') * 1 || 19000, $.getdata('xmMaxStep') * 1 || 21000);
           await get_time();
           await change_step(app_token, user_id);
           if ($.changeStepRes && $.changeStepRes.code === 1) {
@@ -125,6 +124,7 @@ function change_step(app_token, user_id) {
       } catch (e) {
         $.logErr(e, resp)
       } finally {
+        console.log('changeStep' + `${JSON.stringify(resp)}`);
         resolve();
       }
     })
@@ -147,6 +147,7 @@ function get_app_token(login_token, headers) {
       } catch (e) {
         $.logErr(e, resp)
       } finally {
+        console.log('getAppToken' + `${JSON.stringify(data)}`);
         resolve();
       }
     })
@@ -169,6 +170,7 @@ function get_time() {
       } catch (e) {
         $.logErr(e, resp)
       } finally {
+        console.log('getTime' + `${JSON.stringify(data)}`);
         resolve(data);
       }
     })
